@@ -23,7 +23,7 @@ const NicknamePage = () => {
         placeholder="Enter your nickname"
         value={nickname}
         onChange={handleNicknameChange}
-        className='inputText'
+        className={styles.inputText}
       />
       <Link href="/avatarSelection" className={styles.saveButton}>
         Save Nickname
