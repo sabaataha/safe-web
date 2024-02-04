@@ -15,8 +15,8 @@ a {
   margin: 0 auto;
 }
 nav {
-  margin: 10px auto 80px;
-  padding: 10px 0;
+  margin: 10px auto 60px;
+  padding: 0 0;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;

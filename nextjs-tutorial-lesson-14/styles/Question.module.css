@@ -1,0 +1,99 @@
+ 
+.container {
+    position:  flex;
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column; /* Stack child elements vertically */
+    align-items: flex; /* Center child elements horizontally */
+  }
+    
+  .question {
+    color: #0c0c0c;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: auto;
+    position: flex; /* Ensure relative positioning for absolute children */
+  }
+  
+  .questionImage {
+    width: 100%; /* Make the image fill the width of its container */
+    max-height: 300px; /* Set a maximum height for the image */
+    object-fit: cover; /* Ensure the image covers the container while maintaining its aspect ratio */
+    margin-bottom: 1%; 
+    border-radius: 30px;
+  }
+  
+  .questionnumber {
+    position: flex;
+    color: #1971c2;
+    top: 15px;
+    left: 10px;
+    font-size: 30px;
+    font-weight: 600; /* Font weight for question number */
+  }
+  
+  .question h1 {
+    font-size: 30px;
+    position: relative;
+    text-align: center; /* Center-align the text */
+    font-weight: 600; /* Font weight for question text */
+  }
+  
+  .options {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .card {
+    flex: 1;
+    color: #1971c2;
+    background-color: #fff;
+    border: 1px solid #fcc2d7;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px; /* Increase padding for more space inside the card */
+    margin: 0 10px;
+    cursor: pointer;
+    margin-bottom: 2%;
+    transition: transform 0.3s ease;
+    /* height: 120px; Adjust the height of the card */
+    font-size: 18px; /* Adjust the font size as needed */
+    font-family: 'Nunito', sans-serif; /* Set the font family to Nunito */
+  
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .nextbutton {
+    background-color: #a5d8ff; 
+    color: black;
+    padding: 10px 20px; 
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin: 12px auto; 
+    display: block; 
+    
+  }
+  
+  .nextbutton:hover {
+    background-color: #78c4ff; /* Darker blue on hover */
+  }
+  
+  
+  .card.selected {
+    background-color: #ddd; /* Highlight selected answer */
+  }
+  
+  .card.correct {
+    background-color: #a0e59b !important; /* Green background for correct answer */
+  }
+  
+  .card.incorrect {
+    background-color: #ff8a8a !important; /* Red background for incorrect answer */
+  }
+  
