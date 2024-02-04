@@ -3,10 +3,12 @@
   padding-bottom: 20px;
   text-align: center;
 }
+
 .text {
   color: #1971c2;
   text-align: center;
 }
+
 .btn {
   display: block;
   width: 150px;
@@ -17,21 +19,19 @@
   color: black;
   text-align: center;
   border: 2px solid #1971c2;
+  margin-bottom: 50px; /* Adjusted margin */
 }
+
 .HomePicContainer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  position: relative;
+  width: 100vw; /* Full viewport width */
+  height: 100vh;
+  background-image: url('/HomePic.png'); /* Set the path to your image */
+  background-size: cover;
+  background-position: left; /* Adjust as needed */
+  background-repeat: no-repeat;
 }
 
 .HomePic {
-  position: relative;
-  width: 500px; /* Adjust to your preferred width */
-  height: 400px; /* Adjust to your preferred height */
-}
-
-.HomePic img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  display: none; /* Hide the Image component */
 }
