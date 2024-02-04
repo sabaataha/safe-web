@@ -1,18 +1,37 @@
 .title {
-  color: #333;
+  color: #fcc2d7;
   padding-bottom: 20px;
   text-align: center;
 }
+
 .text {
-  color: #777;
+  color: #1971c2;
+  text-align: center;
 }
+
 .btn {
   display: block;
   width: 150px;
   padding: 8px 0;
   margin: 20px auto;
-  background: #4979ff;
-  border-radius: 4px;
-  color: white;
+  background: #a5d8ff;
+  border-radius: 12px;
+  color: black;
   text-align: center;
+  border: 2px solid #1971c2;
+  margin-bottom: 50px; /* Adjusted margin */
+}
+
+.HomePicContainer {
+  position: relative;
+  width: 100vw; /* Full viewport width */
+  height: 100vh;
+  background-image: url('/HomePic.png'); /* Set the path to your image */
+  background-size: cover;
+  background-position: left; /* Adjust as needed */
+  background-repeat: no-repeat;
+}
+
+.HomePic {
+  display: none; /* Hide the Image component */
 }
