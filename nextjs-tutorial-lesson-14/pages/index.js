@@ -13,7 +13,7 @@ export default function Home() {
         <h1 className={styles.title}>Risk Guard</h1>
         <p className={styles.text}>help Alex make smart choices to ensure a safe-web journey
           on Risk Guard!   </p>
-        <Link href="/question" className={styles.btn}>
+        <Link href="/avatarSelection" className={styles.btn}>
          Start a New Game 
         </Link>
         <div className="HomePicContainer">
@@ -25,6 +25,4 @@ export default function Home() {
     </>
   )
 }
-{/* <Link href="/ninjas/" className={styles.btn}>
-Start a New Game 
-</Link> */}
+
