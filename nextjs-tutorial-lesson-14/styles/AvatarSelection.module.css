@@ -1,0 +1,42 @@
+.avatar-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.avatar-container .avatar-img {
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  transition: border-color 0.3s ease;
+  margin-top: 50px;
+  margin-right: 10px; 
+  margin-bottom: 50px;
+  width: 100px; 
+  height: 100px; 
+}
+
+.avatar-container .avatar-img:hover {
+  border-color: #1971c2; /* Change color on hover */
+}
+
+.avatar-container .avatar-img.selected {
+  border-color: #1971c2; /* Highlight the selected avatar */
+}
+
+.btnAvatar {
+  display: block;
+  width: 150px;
+  padding: 8px 0;
+  margin: 20px auto;
+  background: #a5d8ff;
+  border-radius: 12px;
+  color: black;
+  text-align: center;
+  border: 2px solid #1971c2;
+  margin-bottom: 50px; 
+  font-family: 'Nunito', sans-serif; 
+  font-size: 16px; 
+  cursor: pointer; 
+}
+
