@@ -1,4 +1,3 @@
-// pages/nickname.js
 import { useState } from 'react';
 import Link from 'next/link';
 import styles from '../styles/NicknamePage.module.css';
@@ -9,10 +8,9 @@ const NicknamePage = () => {
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
   };
-
+  //we need to change this and save nickname in db for example 
   const saveNickname = () => {
     localStorage.setItem('nickname', nickname);
-    // Redirect to the main game page or any other page
   };
 
   return (
