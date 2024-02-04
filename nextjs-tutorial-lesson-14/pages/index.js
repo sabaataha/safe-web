@@ -13,7 +13,7 @@ export default function Home() {
         <h1 className={styles.title}>Risk Guard</h1>
         <p className={styles.text}>help Alex make smart choices to ensure a safe-web journey
           on Risk Guard!   </p>
-        <Link href="/avatarSelection" className={styles.btn}>
+        <Link href="/NicknamePage" className={styles.btn}>
          Start a New Game 
         </Link>
         <div className="HomePicContainer">

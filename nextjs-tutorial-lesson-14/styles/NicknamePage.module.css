@@ -1,0 +1,53 @@
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.title {
+    color: #1971c2;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.inputText {
+    width: 300px;
+    padding: 10px; 
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: 2px solid #1971c2;
+    border-radius: 8px;
+    font-size: 1rem; 
+    background-color: #f7f7f7; 
+    color: #333; 
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .inputText:focus {
+    border-color: #78c4ff; /* Border color on focus */
+    outline: none; /* Remove default focus outline */
+    background-color: #fff; /* Background color on focus */
+  }
+  
+
+.saveButton {
+    display: block;
+    width: 150px;
+    padding: 8px 0;
+    margin: 20px auto;
+    background: #a5d8ff;
+    border-radius: 12px;
+    color: black;
+    text-align: center;
+    /* border: 2px solid #1971c2; */
+    margin-bottom: 50px; 
+    font-family: 'Nunito', sans-serif; 
+    font-size: 16px; 
+    cursor: pointer; 
+}
+
+.saveButton:hover {
+    background-color: #78c4ff;
+}
