@@ -1,20 +1,46 @@
 import { useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styles from '../styles/NicknamePage.module.css';
 
 const NicknamePage = () => {
+  const router = useRouter();
   const [nickname, setNickname] = useState('');
+  const [pin, setPin] = useState('');
 
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
   };
+
   const handlePinChange = (e) => {
-    setNickname(e.target.value);
+    setPin(e.target.value);
   };
-  //we need to change this and save nickname in db for example 
-  const saveNickname = () => {
-    localStorage.setItem('nickname', nickname);
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('/', { // Updated URL
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ nickname, pin }),
+      });
+     console.log(nickname, pin);
+      if (response.ok) {
+        console.log('success');
+        console.log(response.body);
+        // Navigate to the '/avatarSelection' page after successful form submission
+        router.push('/avatarSelection');
+      } else {
+        console.log('not working');
+        console.log(response);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+  
+  
+  
 
   return (
     <div className={styles.container}>
@@ -26,16 +52,16 @@ const NicknamePage = () => {
         onChange={handleNicknameChange}
         className={styles.inputText}
       />
-        <input
+      <input
         type="text"
         placeholder="Enter Pin"
-        value={nickname}
+        value={pin}
         onChange={handlePinChange}
         className={styles.inputText}
       />
-      <Link href="/avatarSelection" className={styles.saveButton}>
+      <button onClick={handleSubmit} className={styles.saveButton}>
         Submit
-      </Link>
+      </button>
     </div>
   );
 };
