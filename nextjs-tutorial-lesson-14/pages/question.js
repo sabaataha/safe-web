@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/Question.module.css';
+import BarChart from '../comps/BarChart.js';
+
 
 const Question = ({ toggleStatistics }) => { // Receive toggleStatistics function as prop
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [showStatistics, setShowStatistics] = useState(false);
+
   const [optionCounts, setOptionCounts] = useState(Array.from({ length: 4 }, () => Array(4).fill(0)));
   const router = useRouter();
 
@@ -47,6 +51,11 @@ const Question = ({ toggleStatistics }) => { // Receive toggleStatistics functio
 
     return `${styles.card} ${isSelected && styles.selected} ${isCorrect && styles.correct} ${isSelected && !isCorrect && styles.incorrect}`;
   };
+  const handleShowStatistics = () => {
+    setShowStatistics(true);
+  };
+
+
 
   const handleShowInformation = () => {
     const information = questions[currentQuestion].information;
@@ -86,7 +95,8 @@ const Question = ({ toggleStatistics }) => { // Receive toggleStatistics functio
                 Next Question
               </button>
               <a onClick={handleShowInformation} className={styles.linkButton}>Information</a>
-              <a onClick={toggleStatistics} className={styles.linkButton}>
+              
+              <a onClick={handleShowStatistics} className={styles.linkButton}>
                 Statistics
               </a>
             </div>
@@ -100,7 +110,9 @@ const Question = ({ toggleStatistics }) => { // Receive toggleStatistics functio
           )}
         </div>
       )}
+      {showStatistics && <BarChart data={optionCounts} />} {/* Pass optionCounts to BarChart component */}
     </div>
+    
   );
 };
 

@@ -23,6 +23,15 @@ const questions = [
     correctAnswer: 1,
     information: 'Personal boundaries involve respecting personal space and limits, allowing individuals to maintain their autonomy',
   },
+  {
+    id: 4,
+    question: ' How can you respond if someone makes you uncomfortable?',
+    options: [
+       'Speak up and express your feelings','Keep it to yourself', 'Pretend nothing happened', 
+       'Blame yourself'],
+    correctAnswer: 2,
+    information: 'When uncomfortable, its important to speak up and express your feelings, promoting open communication and resolution.',
+  },
   
   // Add more questions
 ];
