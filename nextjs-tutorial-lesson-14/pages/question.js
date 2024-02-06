@@ -4,7 +4,8 @@ import styles from '../styles/Question.module.css';
 import BarChart from '../comps/BarChart.js';
 import { useRouter } from 'next/router';
 
-const Question = () => {
+
+const Question = ({ toggleStatistics }) => { // Receive toggleStatistics function as prop
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -25,6 +26,10 @@ const Question = () => {
   const handleNextQuestion = () => {
     setCurrentQuestion((prev) => prev + 1);
     setSelectedOption(null);
+  };
+
+  const handleEndGame = () => {
+    // Handle end game logic here
   };
 
   const handleAnswerClick = (index) => {
@@ -51,6 +56,16 @@ const Question = () => {
 
   const handleShowStatistics = () => {
     setShowStatistics(true);
+  };
+
+
+
+  const handleShowInformation = () => {
+    const information = questions[currentQuestion].information;
+    router.push({
+      pathname: '/quesInformation',
+      query: { information }
+    });
   };
 
   return (
@@ -82,8 +97,17 @@ const Question = () => {
               <button onClick={handleNextQuestion} className={styles.nextbutton}>
                 Next Question
               </button>
-              <button onClick={handleShowStatistics} className={styles.nextbutton}>
+              <a onClick={handleShowInformation} className={styles.linkButton}>Information</a>
+
+              <a onClick={handleShowStatistics} className={styles.linkButton}>
                 Statistics
+              </a>
+            </div>
+          )}
+          {currentQuestion === questions.length - 1 && ( // Render End Game button when on the last question
+            <div>
+              <button onClick={handleEndGame} className={styles.linkButton}>
+                End Game
               </button>
             </div>
           )}
@@ -92,6 +116,7 @@ const Question = () => {
 
       {showStatistics && <BarChart data={optionCounts} />} {/* Pass optionCounts to BarChart component */}
     </div>
+
   );
 };
 

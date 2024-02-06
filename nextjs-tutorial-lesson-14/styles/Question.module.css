@@ -79,6 +79,20 @@
     display: block; 
     
   }
+  .linkButton {
+    background-color: #a5d8ff; 
+    color: black;
+    padding: 10px 20px; 
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin: 12px auto; 
+    display: block;
+    width:  80px;
+  }
+  
   
   .nextbutton:hover {
     background-color: #78c4ff; /* Darker blue on hover */
