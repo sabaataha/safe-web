@@ -34,7 +34,7 @@ const NicknamePage = () => {
         className={styles.inputText}
       />
       <Link href="/avatarSelection" className={styles.saveButton}>
-        Save Nickname
+        Submit
       </Link>
     </div>
   );
