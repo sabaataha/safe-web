@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import styles from '../styles/NicknamePage.module.css';
+import { useRouter } from 'next/router';
 
 const NicknamePage = () => {
   const [nickname, setNickname] = useState('');
