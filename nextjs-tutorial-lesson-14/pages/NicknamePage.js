@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/NicknamePage.module.css';
-import { useRouter } from 'next/router';
+//import { useRouter } from 'next/router';
 
 const NicknamePage = () => {
   const router = useRouter();
