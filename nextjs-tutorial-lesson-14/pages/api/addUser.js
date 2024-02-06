@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 export default function handler(req, res) {
-  const dbPath = path.join(process.cwd(), 'data', 'Games.json'); // Path to db.json
+  const dbPath = path.join(process.cwd(), 'data', 'db.json'); // Path to db.json
 
   if (req.method === 'POST') {
     const { nickname, pin } = req.body;

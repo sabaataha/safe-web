@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/Question.module.css';
 import BarChart from '../comps/BarChart.js';
+import io from 'socket.io-client';
 
+const socket = io('http://localhost:5000', { transports: ['websocket'] });
+
+const userRole = "teacher";
 
 const Question = ({ toggleStatistics }) => { // Receive toggleStatistics function as prop
   const [questions, setQuestions] = useState([]);
@@ -14,25 +18,46 @@ const Question = ({ toggleStatistics }) => { // Receive toggleStatistics functio
   const router = useRouter();
 
   useEffect(() => {
+    fetchQuestions();
+  }, []);
+
+  const fetchQuestions = () => {
     fetch('http://localhost:3000/api/questions')
       .then((response) => response.json())
       .then((data) => {
         setQuestions(data);
-        console.log(data);
       });
-  }, []);
+  };
+
 
   const handleNextQuestion = () => {
-    setCurrentQuestion((prev) => prev + 1);
-    setSelectedOption(null);
+    if (userRole === 'teacher') {
+      const nextQuestionIndex = currentQuestion + 1;
+      setCurrentQuestion(nextQuestionIndex);
+      socket.emit('nextQuestion', nextQuestionIndex); // Emit event to server to move to the next question
+      setSelectedOption(null);
+    }
   };
 
   const handleEndGame = () => {
     // Handle end game logic here
   };
 
+  useEffect(() => {
+    socket.on('moveToNextQuestion', (nextQuestionIndex) => {
+      setCurrentQuestion(nextQuestionIndex);
+    });
+
+    return () => {
+      socket.off('moveToNextQuestion');
+    };
+  }, []);
+
   const handleAnswerClick = (index) => {
     setSelectedOption(index);
+    // Emit the answer to the server
+    socket.emit('submitAnswer', { questionId: questions[currentQuestion].id, selectedOption: index});
+    // Increment the count for the selected option
     setOptionCounts((prevCounts) => {
       const newCounts = prevCounts.map((counts, i) =>
         i === index ? counts.map((count, j) => (j === index ? count + 1 : count)) : counts
@@ -40,6 +65,20 @@ const Question = ({ toggleStatistics }) => { // Receive toggleStatistics functio
       return newCounts;
     });
   };
+
+  useEffect(() => {
+    // Listen for answer submissions from other users
+    socket.on('answerSubmitted', (data) => {
+      console.log('Received answer submission update:', data);
+      // Update optionCounts or perform other necessary actions
+    });
+
+    // Clean up event listeners on component unmount
+    return () => {
+      socket.off('answerSubmitted');
+    };
+  }, []);
+
 
   const isCorrectAnswer = (index) => {
     return selectedOption !== null && index === questions[currentQuestion].correctAnswer;
@@ -54,8 +93,6 @@ const Question = ({ toggleStatistics }) => { // Receive toggleStatistics functio
   const handleShowStatistics = () => {
     setShowStatistics(true);
   };
-
-
 
   const handleShowInformation = () => {
     const information = questions[currentQuestion].information;
@@ -91,9 +128,11 @@ const Question = ({ toggleStatistics }) => { // Receive toggleStatistics functio
           )}
           {currentQuestion < questions.length - 1 && (
             <div>
-              <button onClick={handleNextQuestion} className={styles.nextbutton}>
-                Next Question
-              </button>
+             {userRole === 'teacher' && (
+                <button onClick={handleNextQuestion} className={styles.nextbutton}>
+                  Next Question
+                </button>
+              )}
               <a onClick={handleShowInformation} className={styles.linkButton}>Information</a>
               
               <a onClick={handleShowStatistics} className={styles.linkButton}>

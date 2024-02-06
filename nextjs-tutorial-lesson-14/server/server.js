@@ -1,80 +1,48 @@
 const express = require('express');
-const fs = require('fs');
-const cors = require('cors'); // Import the cors package
-const PORT = 5000;
+const http = require('http');
+const socketIo = require('socket.io');
+const cors = require('cors'); // Import cors library
+const { emit } = require("process");
+
+
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
+
+
+app.use(cors()); // Enable CORS for all requests
 app.use(express.json());
-app.use(cors());
 
-const newData = { name: 'John', age: 30 };
-fs.readFile('../data/db.json', 'utf8', (err, data) => {
-  if (err) {
-      // console.error(err);
-      return;
-  }
-  let jsonData;
-  try {
-      jsonData = JSON.parse(data);
-  } catch (parseError) {
-      console.error('Error parsing JSON:', parseError);
-      return;
-  }
+// Handle WebSocket connections
+io.on('connection', (socket) => {
+  console.log('A user connected');
+  console.log(socket.id);
 
-  // If jsonData is not an array, initialize it as an empty array
-  if (!Array.isArray(jsonData)) {
-      jsonData = [];
-  }
+  // // add user to data 
+  //  socket.on("join", async ({ name,isTeacher  }, callback) => {
+  //   const { error, user } = addUser({ id: socket.id, isTeacher});
 
-  // Add new data to existing data
-  jsonData.push(newData);
+  //   if (error) return callback({ error: error });   
+  //     addPlayer({ id: socket.id, name});
+  // });
 
-  // Write updated data back to JSON file
-  fs.writeFile('../data/db.json', JSON.stringify(jsonData), 'utf8', (err) => {
-      if (err) {
-          console.error(err);
-          return;
-      }
-      console.log('Data written to file');
-  });
+ // Handle "nextQuestion" event from teacher
+ socket.on('nextQuestion', (nextQuestionIndex) => {
+  console.log('Teacher is moving to the next question:', nextQuestionIndex);
+  io.emit('moveToNextQuestion', nextQuestionIndex);
 });
-app.post('/', (req, res) => {
-  console.log(req.body.nickname, req.body.pin);
-  console.log('im here1');
-  // Extract nickname and pin from the request body
-  const { nickname, pin } = req.body;
-  console.log(req.body);
-  // Check if nickname and pin are provided
-  if (!nickname || !pin) {
-      return res.status(400).json({ error: 'Nickname and pin are required' });
-  }
-  console.log('im here3');
-  try {
-      // Read existing data from the JSON file synchronously
-      let data = fs.readFileSync('../data/db.json', 'utf8');
-      console.log('im here2');
-      let jsonData = JSON.parse(data);
 
-      // If jsonData is not an array, initialize it as an empty array
-      if (!Array.isArray(jsonData)) {
-          jsonData = [];
-          console.log(jsonData);
-      }
-      console.log(jsonData);
-      // Add new user data to existing data
-      jsonData.push({ nickname, pin });
-
-      // Write updated data back to JSON file synchronously
-      fs.writeFileSync('../data/db.json', JSON.stringify(jsonData), 'utf8');
-      console.log('Data written to file');
-
-      // Send response after writing to the file
-      res.status(200).json({ message: 'User added successfully' });
-  } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'An error occurred while reading or writing the file' });
-  }
+socket.on('disconnect', () => {
+  console.log('User disconnected');
 });
-  
-app.listen(PORT, () => {
+
+socket.on('submitAnswer', (data) => {
+  console.log('Received answer submission from user:', data);
+  io.emit('answerSubmitted', data);
+});
+});
+
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
