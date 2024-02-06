@@ -15,17 +15,17 @@ const NicknamePage = () => {
   const handlePinChange = (e) => {
     setPin(e.target.value);
   };
-
+  const handleClick =() => {
   const handleSubmit = async () => {
     try {
-      const response = await fetch('/', { // Updated URL
+      const response = await fetch('/api/addUser', { // Updated URL
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ nickname, pin }),
       });
-     console.log(nickname, pin);
+     
       if (response.ok) {
         console.log('success');
         console.log(response.body);
@@ -39,7 +39,8 @@ const NicknamePage = () => {
       console.log(error);
     }
   };
-  
+  handleSubmit();
+};
   
   
 
@@ -60,7 +61,7 @@ const NicknamePage = () => {
         onChange={handlePinChange}
         className={styles.inputText}
       />
-      <button onClick={handleSubmit} className={styles.saveButton}>
+      <button onClick={handleClick} className={styles.saveButton}>
         Submit
       </button>
     </div>
