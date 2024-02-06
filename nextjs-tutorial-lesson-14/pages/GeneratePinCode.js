@@ -13,7 +13,7 @@ const GeneratePinCode = () => {
         try {
             await axios.post('/api/savePin', { pin });
             // Redirect to the NicknamePage
-            router.push('/NicknamePage');
+            router.push('/question');
         } catch (error) {
             console.error('Error saving PIN code:', error);
         }
