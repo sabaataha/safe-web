@@ -16,8 +16,24 @@
   font-weight: 600;
 }
 
+/*.btn {*/
+/*  display: block;*/
+/*  width: 150px;*/
+/*  padding: 8px 0;*/
+/*  margin: 20px auto;*/
+/*  background: #a5d8ff;*/
+/*  border-radius: 12px;*/
+/*  color: black;*/
+/*  text-align: center;*/
+/*  border: 2px solid #1971c2;*/
+/*  margin-bottom: 50px; !* Adjusted margin *!*/
+/*  font-family: 'Nunito', sans-serif; !* Updated font family *!*/
+/*  font-size: 16px; !* Updated font size *!*/
+/*}*/
 .btn {
-  display: block;
+  display: flex; /* Changed display to flex */
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
   width: 150px;
   padding: 8px 0;
   margin: 20px auto;
@@ -30,6 +46,23 @@
   font-family: 'Nunito', sans-serif; /* Updated font family */
   font-size: 16px; /* Updated font size */
 }
+
+.btnContainer {
+  display: flex;
+  justify-content: space-around; /* Adjust as needed */
+}
+
+/*.btn {*/
+/*  width: 150px;*/
+/*  padding: 8px 0;*/
+/*  background: #a5d8ff;*/
+/*  border-radius: 12px;*/
+/*  color: black;*/
+/*  text-align: center;*/
+/*  border: 2px solid #1971c2;*/
+/*  font-family: 'Nunito', sans-serif;*/
+/*  font-size: 16px;*/
+/*}*/
 
 .HomePicContainer {
   position: relative;
