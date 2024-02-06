@@ -6,11 +6,11 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Risk Guard | Home</title>
+        <title>OnlySafie | Home</title>
         <meta name="keywords" content="SafeWebGame"/>
       </Head>
       <div>
-        <h1 className={styles.title}>Risk Guard</h1>
+        <h1 className={styles.title}>OnlySafie</h1>
         <p className={styles.text}>help Alex make smart choices to ensure a safe-web journey
           on Risk Guard!   </p>
         <Link href="/NicknamePage" className={styles.btn}>
