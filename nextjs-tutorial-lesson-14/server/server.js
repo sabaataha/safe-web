@@ -1,8 +1,11 @@
 const express = require('express');
 const fs = require('fs');
-const PORT = 3000;
+const cors = require('cors'); // Import the cors package
+const PORT = 5000;
 const app = express();
 app.use(express.json());
+app.use(cors());
+
 const newData = { name: 'John', age: 30 };
 fs.readFile('../data/db.json', 'utf8', (err, data) => {
   if (err) {
@@ -35,10 +38,11 @@ fs.readFile('../data/db.json', 'utf8', (err, data) => {
   });
 });
 app.post('/', (req, res) => {
+  console.log(req.body.nickname, req.body.pin);
   console.log('im here1');
   // Extract nickname and pin from the request body
   const { nickname, pin } = req.body;
-console.log(req.body);
+  console.log(req.body);
   // Check if nickname and pin are provided
   if (!nickname || !pin) {
       return res.status(400).json({ error: 'Nickname and pin are required' });
