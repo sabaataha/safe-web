@@ -11,22 +11,21 @@ export default function handler(req, res) {
             const filePath = path.join(process.cwd(), 'data', 'db.json');
             const db = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
-            // Add a new object to the games array with the pin as the key
-            db.games[pin] = {
+            // db.games[pin] = {
                 // Add any additional properties you need for the game object
                 // For example:
                 // name: 'Your Game Name'
-                playerArray:[
-                    {
-                        nickName:{
-                            currentScore: 0,
-                            userAnswersArray:[]
+                // playerArray:[
+                //     {
+                //         nickName:{
+                //             currentScore: 0,
+                //             userAnswersArray:[]
 
-                        }
-                    }
+                //         }
+                //     }
 
-                ]
-            };
+                // ]
+            // };
 
             // Write the updated games JSON back to db.json
             fs.writeFileSync(filePath, JSON.stringify(db, null, 2));
