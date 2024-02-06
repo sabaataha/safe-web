@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/Question.module.css';
 import BarChart from '../comps/BarChart.js';
+import { useRouter } from 'next/router';
 
 const Question = () => {
   const [questions, setQuestions] = useState([]);
@@ -9,7 +10,9 @@ const Question = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [showStatistics, setShowStatistics] = useState(false);
   const [optionCounts, setOptionCounts] = useState(Array.from({ length: 4 }, () => Array(4).fill(0))); // Initialize option counts
-
+  const router = useRouter();
+  const { userRole } = router.query; // Access the query parameter 'role'
+  console.log(userRole)
   useEffect(() => {
     fetch('http://localhost:3000/api/questions')
       .then((response) => response.json())
