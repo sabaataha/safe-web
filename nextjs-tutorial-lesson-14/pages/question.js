@@ -1,14 +1,13 @@
-// pages/index.js
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import styles from '../styles/Question.module.css';
-import BarChart from '../comps/BarChart.js';
 
-const Question = () => {
+const Question = ({ toggleStatistics }) => { // Receive toggleStatistics function as prop
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [showStatistics, setShowStatistics] = useState(false);
-  const [optionCounts, setOptionCounts] = useState(Array.from({ length: 4 }, () => Array(4).fill(0))); // Initialize option counts
+  const [optionCounts, setOptionCounts] = useState(Array.from({ length: 4 }, () => Array(4).fill(0)));
+  const router = useRouter();
 
   useEffect(() => {
     fetch('http://localhost:3000/api/questions')
@@ -24,9 +23,12 @@ const Question = () => {
     setSelectedOption(null);
   };
 
+  const handleEndGame = () => {
+    // Handle end game logic here
+  };
+
   const handleAnswerClick = (index) => {
     setSelectedOption(index);
-    // Increment the count for the selected option
     setOptionCounts((prevCounts) => {
       const newCounts = prevCounts.map((counts, i) =>
         i === index ? counts.map((count, j) => (j === index ? count + 1 : count)) : counts
@@ -46,8 +48,12 @@ const Question = () => {
     return `${styles.card} ${isSelected && styles.selected} ${isCorrect && styles.correct} ${isSelected && !isCorrect && styles.incorrect}`;
   };
 
-  const handleShowStatistics = () => {
-    setShowStatistics(true);
+  const handleShowInformation = () => {
+    const information = questions[currentQuestion].information;
+    router.push({
+      pathname: '/quesInformation',
+      query: { information }
+    });
   };
 
   return (
@@ -79,15 +85,21 @@ const Question = () => {
               <button onClick={handleNextQuestion} className={styles.nextbutton}>
                 Next Question
               </button>
-              <button onClick={handleShowStatistics} className={styles.nextbutton}>
+              <a onClick={handleShowInformation} className={styles.linkButton}>Information</a>
+              <a onClick={toggleStatistics} className={styles.linkButton}>
                 Statistics
+              </a>
+            </div>
+          )}
+          {currentQuestion === questions.length - 1 && ( // Render End Game button when on the last question
+            <div>
+              <button onClick={handleEndGame} className={styles.linkButton}>
+                End Game
               </button>
             </div>
           )}
         </div>
       )}
-
-      {showStatistics && <BarChart data={optionCounts} />} {/* Pass optionCounts to BarChart component */}
     </div>
   );
 };
