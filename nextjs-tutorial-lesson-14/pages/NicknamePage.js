@@ -8,6 +8,9 @@ const NicknamePage = () => {
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
   };
+  const handlePinChange = (e) => {
+    setNickname(e.target.value);
+  };
   //we need to change this and save nickname in db for example 
   const saveNickname = () => {
     localStorage.setItem('nickname', nickname);
@@ -23,8 +26,15 @@ const NicknamePage = () => {
         onChange={handleNicknameChange}
         className={styles.inputText}
       />
+        <input
+        type="text"
+        placeholder="Enter Pin"
+        value={nickname}
+        onChange={handlePinChange}
+        className={styles.inputText}
+      />
       <Link href="/avatarSelection" className={styles.saveButton}>
-        Save Nickname
+        Submit
       </Link>
     </div>
   );
