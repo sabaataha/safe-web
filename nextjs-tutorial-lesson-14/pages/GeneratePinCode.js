@@ -11,7 +11,6 @@ const GeneratePinCode = () => {
 
     const handleStartNewGame = async () => {
         try {
-            // Send the PIN code to the backend and add it to the games JSON
             await axios.post('/api/savePin', { pin });
             // Redirect to the NicknamePage
             router.push('/NicknamePage');
