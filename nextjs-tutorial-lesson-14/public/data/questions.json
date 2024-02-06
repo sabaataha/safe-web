@@ -1,0 +1,85 @@
+{
+    "slides": [
+      {
+        "question": "What is a crucial aspect of consent in a relationship?",
+        "options": [
+          {"text": "Verbal communication", "correct": true},
+          {"text": "Ignoring signals", "correct": false},
+          {"text": "Assuming consent", "correct": false},
+          {"text": "Peer pressure", "correct": false}
+        ],
+        "information": "Consent in a relationship is crucially based on clear and verbal communication to ensure understanding and agreement."
+      },
+      {
+        "question": "How can one effectively communicate boundaries in a relationship?",
+        "options": [
+          {"text": "Open and honest communication", "correct": true},
+          {"text": "Keeping silent", "correct": false},
+          {"text": "Assuming the other person knows", "correct": false},
+          {"text": "Using body language only", "correct": false}
+        ],
+        "information": "Effective communication of boundaries involves open and honest dialogue to express personal limits and expectations."
+      },
+      {
+        "question": "Why is it important to debunk myths surrounding sexuality?",
+        "options": [
+          {"text": "To provide accurate information", "correct": true},
+          {"text": "To perpetuate misunderstandings", "correct": false},
+          {"text": "To encourage gossip", "correct": false},
+          {"text": "To promote stereotypes", "correct": false}
+        ],
+        "information": "Debunking myths about sexuality is essential to provide accurate information and dispel misconceptions for a healthier understanding."
+      },
+      {
+        "question": "What does the term 'personal boundaries' mean?",
+        "options": [
+          {"text": "Respecting personal space and limits", "correct": true},
+          {"text": "Ignoring others' feelings", "correct": false},
+          {"text": "Always sharing everything", "correct": false},
+          {"text": "Copying others without permission", "correct": false}
+        ],
+        "information": "Personal boundaries involve respecting personal space and limits, allowing individuals to maintain their autonomy."
+      },
+      {
+        "question": "How can you respond if someone makes you uncomfortable?",
+        "options": [
+          {"text": "Speak up and express your feelings", "correct": true},
+          {"text": "Keep it to yourself", "correct": false},
+          {"text": "Pretend nothing happened", "correct": false},
+          {"text": "Blame yourself", "correct": false}
+        ],
+        "information": "When uncomfortable, it's important to speak up and express your feelings, promoting open communication and resolution."
+      },
+      {
+        "question": "What is the importance of hygiene during puberty?",
+        "options": [
+          {"text": "To maintain good health", "correct": true},
+          {"text": "To avoid any changes in the body", "correct": false},
+          {"text": "Hygiene is not important", "correct": false},
+          {"text": "To impress others", "correct": false}
+        ],
+        "information": "Maintaining good hygiene during puberty is crucial for overall health and well-being, ensuring proper care of the changing body."
+      },
+      {
+        "question": "How can you differentiate between a healthy and an unhealthy friendship?",
+        "options": [
+          {"text": "Based on respect and kindness", "correct": true},
+          {"text": "By always agreeing with each other", "correct": false},
+          {"text": "Only having friends who look like you", "correct": false},
+          {"text": "Ignoring differences", "correct": false}
+        ],
+        "information": "Healthy friendships are characterized by respect and kindness, while unhealthy ones may lack these essential elements."
+      },
+      {
+        "question": "Why is it important to talk to a trusted adult about changes in your body?",
+        "options": [
+          {"text": "They can provide guidance and support", "correct": true},
+          {"text": "Keep it a secret", "correct": false},
+          {"text": "Figure it out on your own", "correct": false},
+          {"text": "Trust only friends your age", "correct": false}
+        ],
+        "information": "Talking to a trusted adult about body changes is important for receiving guidance, support, and accurate information during a crucial period of development."
+      }
+    ]
+  }
+  
