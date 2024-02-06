@@ -11,10 +11,14 @@ const GeneratePinCode = () => {
 
     const handleStartNewGame = async () => {
         try {
-            // Send the PIN code to the backend and add it to the games JSON
             await axios.post('/api/savePin', { pin });
             // Redirect to the NicknamePage
-            router.push('/NicknamePage');
+           // router.push('/question');
+            router.push({
+                pathname: '/question',
+                query: { userRole: 'teacher' } // Pass 'teacher' as a query parameter
+            });
+
         } catch (error) {
             console.error('Error saving PIN code:', error);
         }

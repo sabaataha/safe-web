@@ -1,7 +1,8 @@
+// pages/index.js
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import styles from '../styles/Question.module.css';
 import BarChart from '../comps/BarChart.js';
+import { useRouter } from 'next/router';
 
 
 const Question = ({ toggleStatistics }) => { // Receive toggleStatistics function as prop
@@ -9,10 +10,10 @@ const Question = ({ toggleStatistics }) => { // Receive toggleStatistics functio
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [showStatistics, setShowStatistics] = useState(false);
-
-  const [optionCounts, setOptionCounts] = useState(Array.from({ length: 4 }, () => Array(4).fill(0)));
+  const [optionCounts, setOptionCounts] = useState(Array.from({ length: 4 }, () => Array(4).fill(0))); // Initialize option counts
   const router = useRouter();
-
+  const { userRole } = router.query; // Access the query parameter 'role'
+  console.log(userRole)
   useEffect(() => {
     fetch('http://localhost:3000/api/questions')
       .then((response) => response.json())
@@ -33,6 +34,7 @@ const Question = ({ toggleStatistics }) => { // Receive toggleStatistics functio
 
   const handleAnswerClick = (index) => {
     setSelectedOption(index);
+    // Increment the count for the selected option
     setOptionCounts((prevCounts) => {
       const newCounts = prevCounts.map((counts, i) =>
         i === index ? counts.map((count, j) => (j === index ? count + 1 : count)) : counts
@@ -51,6 +53,7 @@ const Question = ({ toggleStatistics }) => { // Receive toggleStatistics functio
 
     return `${styles.card} ${isSelected && styles.selected} ${isCorrect && styles.correct} ${isSelected && !isCorrect && styles.incorrect}`;
   };
+
   const handleShowStatistics = () => {
     setShowStatistics(true);
   };
@@ -95,7 +98,7 @@ const Question = ({ toggleStatistics }) => { // Receive toggleStatistics functio
                 Next Question
               </button>
               <a onClick={handleShowInformation} className={styles.linkButton}>Information</a>
-              
+
               <a onClick={handleShowStatistics} className={styles.linkButton}>
                 Statistics
               </a>
@@ -110,9 +113,10 @@ const Question = ({ toggleStatistics }) => { // Receive toggleStatistics functio
           )}
         </div>
       )}
+
       {showStatistics && <BarChart data={optionCounts} />} {/* Pass optionCounts to BarChart component */}
     </div>
-    
+
   );
 };
 
