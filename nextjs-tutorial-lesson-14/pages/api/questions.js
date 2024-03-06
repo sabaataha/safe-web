@@ -20,7 +20,7 @@ const questions = [
     id: 3,
     question: 'Why is it important to debunk myths surrounding sexuality?',
     options:  ['Respecting personal space and limits',  'Ignoring others feelings', 'Always sharing everything', 'Copying others without permission'],
-    correctAnswer: 1,
+    correctAnswer: 0,
     information: 'Personal boundaries involve respecting personal space and limits, allowing individuals to maintain their autonomy',
   },
   {
@@ -29,7 +29,7 @@ const questions = [
     options: [
        'Speak up and express your feelings','Keep it to yourself', 'Pretend nothing happened', 
        'Blame yourself'],
-    correctAnswer: 2,
+    correctAnswer: 0,
     information: 'When uncomfortable, its important to speak up and express your feelings, promoting open communication and resolution.',
   },
   

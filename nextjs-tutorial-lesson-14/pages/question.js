@@ -1,23 +1,21 @@
-// pages/index.js
+// Import necessary libraries and modules
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/Question.module.css';
 import BarChart from '../comps/BarChart.js';
 import io from 'socket.io-client';
-
-const socket = io('http://localhost:5000', { transports: ['websocket'] });
 import { useRouter } from 'next/router';
 
+const socket = io('http://localhost:5000', { transports: ['websocket'] });
 
-
-const Question = ({ toggleStatistics }) => { // Receive toggleStatistics function as prop
+const Question = ({ toggleStatistics }) => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [showStatistics, setShowStatistics] = useState(false);
-  const [optionCounts, setOptionCounts] = useState(Array.from({ length: 4 }, () => Array(4).fill(0))); // Initialize option counts
+  const [optionCounts, setOptionCounts] = useState(Array.from({ length: 4 }, () => Array(4).fill(0)));
   const router = useRouter();
-  const { userRole } = router.query; // Access the query parameter 'role'
-  console.log(userRole)
+  const { userRole } = router.query;
+
   useEffect(() => {
     fetchQuestions();
   }, []);
@@ -30,35 +28,20 @@ const Question = ({ toggleStatistics }) => { // Receive toggleStatistics functio
       });
   };
 
-
+  // Handler for moving to the next question
   const handleNextQuestion = () => {
     if (userRole === 'teacher') {
       const nextQuestionIndex = currentQuestion + 1;
       setCurrentQuestion(nextQuestionIndex);
-      socket.emit('nextQuestion', nextQuestionIndex); // Emit event to server to move to the next question
+      setSelectedOption(null);
+      socket.emit('nextQuestion', nextQuestionIndex);
     }
-    
   };
 
-  const handleEndGame = () => {
-    // Handle end game logic here
-  };
-
-  useEffect(() => {
-    socket.on('moveToNextQuestion', (nextQuestionIndex) => {
-      setCurrentQuestion(nextQuestionIndex);
-    });
-
-    return () => {
-      socket.off('moveToNextQuestion');
-    };
-  }, []);
-
+  // Handler for submitting an answer
   const handleAnswerClick = (index) => {
     setSelectedOption(index);
-    // Emit the answer to the server
-    socket.emit('submitAnswer', { questionId: questions[currentQuestion].id, selectedOption: index});
-    // Increment the count for the selected option
+    socket.emit('submitAnswer', { questionId: questions[currentQuestion].id, selectedOption: index });
     setOptionCounts((prevCounts) => {
       const newCounts = prevCounts.map((counts, i) =>
         i === index ? counts.map((count, j) => (j === index ? count + 1 : count)) : counts
@@ -67,31 +50,37 @@ const Question = ({ toggleStatistics }) => { // Receive toggleStatistics functio
     });
   };
 
+  // Listen for events emitted by the server
   useEffect(() => {
-    // Listen for answer submissions from other users
+    socket.on('moveToNextQuestion', (nextQuestionIndex) => {
+      setCurrentQuestion(nextQuestionIndex);
+      setSelectedOption(null); // Reset selected option when moving to next question
+    });
+
     socket.on('answerSubmitted', (data) => {
-      console.log('Received answer submission update:', data);
       // Update optionCounts or perform other necessary actions
     });
 
-    // Clean up event listeners on component unmount
     return () => {
+      // Clean up event listeners on component unmount
+      socket.off('moveToNextQuestion');
       socket.off('answerSubmitted');
     };
   }, []);
 
-
+  // Helper function to determine if an answer is correct
   const isCorrectAnswer = (index) => {
     return selectedOption !== null && index === questions[currentQuestion].correctAnswer;
   };
 
+  // Helper function to generate class names for options
   const getCardClassName = (index) => {
     const isSelected = selectedOption === index;
     const isCorrect = isCorrectAnswer(index);
-
     return `${styles.card} ${isSelected && styles.selected} ${isCorrect && styles.correct} ${isSelected && !isCorrect && styles.incorrect}`;
   };
 
+  // Handlers for showing statistics and information
   const handleShowStatistics = () => {
     setShowStatistics(true);
   };
@@ -123,11 +112,6 @@ const Question = ({ toggleStatistics }) => { // Receive toggleStatistics functio
               </button>
             ))}
           </div>
-          {selectedOption !== null && (
-            <div className={styles.feedback}>
-              {/* Add feedback content here if needed */}
-            </div>
-          )}
           {currentQuestion < questions.length - 1 && (
             <div>
              {userRole === 'teacher' && (
@@ -136,25 +120,22 @@ const Question = ({ toggleStatistics }) => { // Receive toggleStatistics functio
                 </button>
               )}
               <a onClick={handleShowInformation} className={styles.linkButton}>Information</a>
-
               <a onClick={handleShowStatistics} className={styles.linkButton}>
                 Statistics
               </a>
             </div>
           )}
-          {currentQuestion === questions.length - 1 && ( // Render End Game button when on the last question
+          {currentQuestion === questions.length - 1 && (
             <div>
-              <button onClick={handleEndGame} className={styles.linkButton}>
+              <button className={styles.linkButton}>
                 End Game
               </button>
             </div>
           )}
         </div>
       )}
-
       {showStatistics && <BarChart data={optionCounts} />} {/* Pass optionCounts to BarChart component */}
     </div>
-
   );
 };
 

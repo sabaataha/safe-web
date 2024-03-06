@@ -1,16 +1,13 @@
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
-const cors = require('cors'); // Import cors library
-const { emit } = require("process");
-
+const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-
-app.use(cors()); // Enable CORS for all requests
+app.use(cors());
 app.use(express.json());
 
 // Handle WebSocket connections
@@ -18,28 +15,19 @@ io.on('connection', (socket) => {
   console.log('A user connected');
   console.log(socket.id);
 
-  // // add user to data 
-  //  socket.on("join", async ({ name,isTeacher  }, callback) => {
-  //   const { error, user } = addUser({ id: socket.id, isTeacher});
+  socket.on('nextQuestion', (nextQuestionIndex) => {
+    console.log('Teacher is moving to the next question:', nextQuestionIndex);
+    io.emit('moveToNextQuestion', nextQuestionIndex); // Broadcast to all clients
+  });
 
-  //   if (error) return callback({ error: error });   
-  //     addPlayer({ id: socket.id, name});
-  // });
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
+  });
 
- // Handle "nextQuestion" event from teacher
- socket.on('nextQuestion', (nextQuestionIndex) => {
-  console.log('Teacher is moving to the next question:', nextQuestionIndex);
-  io.emit('moveToNextQuestion', nextQuestionIndex);
-});
-
-socket.on('disconnect', () => {
-  console.log('User disconnected');
-});
-
-socket.on('submitAnswer', (data) => {
-  console.log('Received answer submission from user:', data);
-  io.emit('answerSubmitted', data);
-});
+  socket.on('submitAnswer', (data) => {
+    console.log('Received answer submission from user:', data);
+    io.emit('answerSubmitted', data); // Broadcast to all clients
+  });
 });
 
 const PORT = process.env.PORT || 5000;
