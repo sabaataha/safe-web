@@ -1,36 +1,32 @@
 const express = require('express');
-const http = require('http');
-const socketIo = require('socket.io');
 const cors = require('cors');
+const mongoose = require("mongoose");
+const connectSocket = require('./SocketIO');
+const http = require('http');
 
+
+const connectDB = require("./ConnectDB");
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
 
-app.use(cors());
-app.use(express.json());
 
-// Handle WebSocket connections
-io.on('connection', (socket) => {
-  console.log('A user connected');
-  console.log(socket.id);
+connectDB();
+connectSocket(server);
 
-  socket.on('nextQuestion', (nextQuestionIndex) => {
-    console.log('Teacher is moving to the next question:', nextQuestionIndex);
-    io.emit('moveToNextQuestion', nextQuestionIndex); // Broadcast to all clients
-  });
-
-  socket.on('disconnect', () => {
-    console.log('User disconnected');
-  });
-
-  socket.on('submitAnswer', (data) => {
-    console.log('Received answer submission from user:', data);
-    io.emit('answerSubmitted', data); // Broadcast to all clients
-  });
+mongoose.connection.on("error", (error) => {
+  console.error("MongoDB connection error:", error);
 });
+
+mongoose.connection.on("disconnected", () => {
+  console.log("MongoDB disconnected");
+});
+
+app.use(express.json());
+app.use(cors());
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+module.exports = app;
