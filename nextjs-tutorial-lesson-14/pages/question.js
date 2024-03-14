@@ -41,7 +41,8 @@ const Question = ({ toggleStatistics }) => {
   // Handler for submitting an answer
   const handleAnswerClick = (index) => {
     setSelectedOption(index);
-    socket.emit('submitAnswer', { questionId: questions[currentQuestion].id, selectedOption: index });
+    const socketId = socket.id; 
+    socket.emit('submitAnswer', { userId: socketId,questionId: questions[currentQuestion].id, selectedOption: index });
     setOptionCounts((prevCounts) => {
       const newCounts = prevCounts.map((counts, i) =>
         i === index ? counts.map((count, j) => (j === index ? count + 1 : count)) : counts

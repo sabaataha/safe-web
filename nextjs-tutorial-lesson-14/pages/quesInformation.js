@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; // Import useState from React
+import React, { useState } from 'react'; 
 import { useRouter } from 'next/router';
 import styles from '../styles/Question.module.css';
 
